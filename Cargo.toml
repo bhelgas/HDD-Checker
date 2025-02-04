@@ -11,6 +11,9 @@ hostname = "0.4.0"
 walkdir = "2.5.0"
 native-dialog = "0.7.0"
 
+
 [profile.release]
-lto = true
-strip = true
+strip = true  # Removes debug symbols
+opt-level = "s"  # Optimize for size
+lto = true  # Enable Link Time Optimization
+panic = "abort"  # Reduce binary size by removing unwinding support
