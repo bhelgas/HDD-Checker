@@ -62,7 +62,7 @@ The copying process uses the standard `fs::copy` function to copy the file to th
 1. Clone the repository to your local machine:
 
    ```bash
-   git clone https://github.com/yourusername/HDD-Checker.git
+   git clone https://github.com/bhelgas/HDD-Checker.git
     ```
 2. Navigate to the project directory:
    ```bash
