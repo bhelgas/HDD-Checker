@@ -16,7 +16,7 @@ struct AppState {
 fn main() {
     let window = WindowDesc::new(build_ui()) 
         .title("HDD Checker")
-        .window_size((400.0,400.0));
+        .window_size((600.0,400.0));
 
     let initial_state = AppState {
         target_folder: None,
@@ -26,20 +26,20 @@ fn main() {
 
     AppLauncher::with_window(window)
         .launch(initial_state)
-        .expect("Applikasjonen kunne ikke åpnes");
+        .expect("The application failed to open.");
 }
 
 
 fn build_ui() -> impl Widget<AppState> {
     let source_label = Label::new(|data: &AppState, _env: &Env| {
         if let Some(ref folder) = data.source_folder {
-            format!("Valgt mappe: {}", folder)
+            format!("Selected folder: {}", folder)
         } else {
-            "Ingen mappe valgt".to_string()
+            "No folder selected".to_string()
         }
     });
 
-    let select_source_folder = Button::new("Velg hovedmappe")
+    let select_source_folder = Button::new("Select source folder")
         .on_click(|_ctx, data: &mut AppState, _env: &Env| {
             if let Some(path) = FileDialog::new().show_open_single_dir().ok().flatten() {
                 data.source_folder = Some(path.display().to_string());
@@ -48,26 +48,26 @@ fn build_ui() -> impl Widget<AppState> {
 
     let target_label = Label::new(|data: &AppState, _env: &Env| {
         if let Some(ref folder) = data.target_folder {
-            format!("Valgt mappe: {}", folder)
+            format!("Selected folder: {}", folder)
         } else {
-            "Ingen mappe valgt".to_string()
+            "No folder selected".to_string()
         }
     });
 
-    let select_target_folder = Button::new("Velg destinasjonsmappe")
+    let select_target_folder = Button::new("Select destination folder")
         .on_click(|_ctx, data: &mut AppState, _env: &Env| {
             if let Some(path) = FileDialog::new().show_open_single_dir().ok().flatten() {
                 data.target_folder = Some(path.display().to_string());
             }
         });
 
-    let extension_label = Label::new("Filtyper");
+    let extension_label = Label::new("File extensions");
 
     let extension_box = TextBox::new()
-        .with_placeholder("jpg,png,gif")
+        .with_placeholder("e.g. jpg,png,gif")
         .lens(AppState::extension_input);
 
-    let copy_button = Button::new("Kopier filer")
+    let copy_button = Button::new("Copy files")
         .on_click(|_ctx, data: &mut AppState, _env: &Env| {
             if let (Some(source_folder), Some(target_folder)) = (&data.source_folder, &data.target_folder) {
                 let source_path = Path::new(source_folder);
@@ -106,18 +106,18 @@ fn copy_files_with_extension(source: &Path, destination: &Path, extensions: &str
             let path = entry.path();
 
             if path.is_file() {  
-                println!("Jeg fant en fil på: {}", path.display());
+                println!("I found a file in: {}", path.display());
                 if let Some(extension) = path.extension() {
                     if parts.contains(&extension.to_str().unwrap()) {
                         let file_name = path.file_name().unwrap();
                         let dest_path = Path::new(destination).join(file_name);
-                        println!("Rett filtype funnet på: {}, kopierer fil...", dest_path.display());
+                        println!("Correct filetype found in: {}, copying file to destination folder...", dest_path.display());
                         fs::copy(&path, &dest_path).unwrap();
                     }
                 }
             }
         } 
-        println!("Fullførte filkopiering");
+        println!("Finished file copy");
     }
     Ok(())
 }
