@@ -21,10 +21,10 @@
 
 The user interface is built using `druid`. It contains the following elements:
 
-- **Source Folder Selection**: A button labeled "Velg hovedmappe" that opens a file dialog for the user to select the source folder where files will be scanned.
-- **Target Folder Selection**: A button labeled "Velg destinasjonsmappe" that opens a file dialog for the user to select the destination folder where matching files will be copied.
+- **Source Folder Selection**: A button labeled "Select source folder" that opens a file dialog for the user to select the source folder where files will be scanned.
+- **Target Folder Selection**: A button labeled "Select destination folder" that opens a file dialog for the user to select the destination folder where matching files will be copied.
 - **File Type Input**: A text box for the user to input file extensions (e.g., `jpg,png,gif`). The program will only copy files with the specified extensions.
-- **Copy Files Button**: A button labeled "Kopier filer" that, when clicked, triggers the process of scanning the source folder and copying matching files to the target folder.
+- **Copy Files Button**: A button labeled "Copy files" that, when clicked, triggers the process of scanning the source folder and copying matching files to the target folder.
 
 ### 2. **Application State**
 
@@ -35,7 +35,7 @@ The state of the application is managed using the `AppState` struct, which store
 
 ### 3. **File Copy Logic**
 
-When the user clicks the "Kopier filer" button, the following happens:
+When the user clicks the "Copy files" button, the following happens:
 - The program retrieves the paths for the source and target folders from the application state.
 - The program splits the `extension_input` string into a vector of extensions (e.g., `["jpg", "png", "gif"]`).
 - The program then walks through the source folder (and its subfolders) using the `walkdir` crate.
@@ -51,10 +51,10 @@ The copying process uses the standard `fs::copy` function to copy the file to th
 
 ### Example Flow
 
-1. The user clicks the "Velg hovedmappe" button and selects a source folder.
-2. The user clicks the "Velg destinasjonsmappe" button and selects a destination folder.
-3. The user enters the file extensions to search for in the "Filtyper" input box (e.g., `jpg,png,gif`).
-4. The user clicks the "Kopier filer" button, and the program begins scanning the source folder.
+1. The user clicks the "Select source folder" button and selects a source folder.
+2. The user clicks the "Select destination folder" button and selects a destination folder.
+3. The user enters the file extensions to search for in the "File extensions" input box (e.g., `jpg,png,gif`).
+4. The user clicks the "Copy files" button, and the program begins scanning the source folder.
 5. Files with the specified extensions are copied to the target folder.
 
 ## How to Run
